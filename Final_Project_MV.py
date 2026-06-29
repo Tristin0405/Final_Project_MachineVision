@@ -7,11 +7,9 @@ cap = cv.VideoCapture(r"D:\MonHoc\MachineVision\Final\Badmintun.mp4")
 width_court, height_court = 610, 670
 M = None
 
-print("Đang phân tích mặt sân...")
 while cap.isOpened():
     ret, frame = cap.read()
     if not ret:
-        print("Không thể đọc video hoặc không tìm thấy sân!")
         exit()
 
     frame = cv.resize(frame, (frame.shape[1]//2, frame.shape[0]//2))
@@ -95,7 +93,6 @@ while cap.isOpened():
         dst = np.float32([[0,0], [width_court,0], [width_court,height_court], [0,height_court]])
         
         M = cv.getPerspectiveTransform(src, dst)
-        print("✓ Đã tính toán Ma trận xoay sa bàn thành công!")
         break 
 
 
@@ -264,7 +261,7 @@ while cap.isOpened():
 
     # Hiển thị
     cv.imshow("Live Camera", frame)
-    cv.imshow("Professional Density Heatmap", tactical_board)
+    cv.imshow("Heatmap", tactical_board)
 
     if cv.waitKey(10) & 0xFF == ord('q'):
         break
